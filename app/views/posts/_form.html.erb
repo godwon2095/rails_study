@@ -1,0 +1,9 @@
+<%= form_for(@post) do |f| %>
+  <%= f.label :title, "제목" %><br>
+  <%= f.text_field :title %><br><br>
+
+  <%= f.label :content, '내용' %><br>
+  <%= f.text_area :content %><br>
+
+  <%= f.submit "제출", class: "btn btn-primary" %>
+<% end %>
