@@ -1,2 +1,17 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<h1><%= @post.title %></h1>
+<h2><%= @post.user&.name %></h2>
+<p><%= @post.content %></p>
+
+
+<%= form_for(@comment, url: post_comments_path(@post)) do |f| %>
+  <%= f.label :body, "댓글내용" %><br>
+  <%= f.text_area :body %><br>
+
+  <%= f.submit "제출" %>
+<% end %>
+
+<% @comments. each do |comment| %>
+  <h2><%= comment.user&.name %></h2>
+  <p><%= comment.body %></p><br><br>
+  <%= link_to "삭제", post_comment_path(@post, comment), method: :delete %>
+<% end %>

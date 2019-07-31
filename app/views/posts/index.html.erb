@@ -3,7 +3,11 @@
   <%= link_to "글 생성하기", new_post_path %>
 
   <% @posts.each do |post| %>
-    <h4>글의 제목 : <%= post.title %></h4>
+    <h4>
+      <%= link_to post_path(post) do %>
+        글의 제목 : <%= post.title %>
+      <% end %>
+    </h4>
     <h6>조회수 : <%= post.view_count %></h6>
     <p>글의 내용 : <%= post.content %></p>
     <%= link_to "수정", edit_post_path(post) %>

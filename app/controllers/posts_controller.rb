@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: :index
   before_action :load_post, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -16,6 +17,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = @post.comments
   end
 
   def edit
@@ -35,7 +38,8 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :content)
+    params[:post][:user_id] = current_user.id
+    params.require(:post).permit(:title, :content, :user_id)
   end
 
   def load_post
