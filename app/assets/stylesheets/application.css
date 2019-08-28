@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+.ion-ios-heart-empty {
+  font-size: 60px;
+  color: red;
+}
+
+.ion-ios-heart {
+  font-size: 60px;
+  color: red;
+}

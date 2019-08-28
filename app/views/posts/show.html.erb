@@ -1,17 +1,23 @@
-<h1><%= @post.title %></h1>
-<h2><%= @post.user&.name %></h2>
-<p><%= @post.content %></p>
+<div class="container">
+  <h1><%= @post.title %></h1>
+  <h2><%= @post.user&.name %></h2>
+  <p><%= @post.content %></p>
 
+  <% heart_state = @post.liked_users.include?(current_user) ? 'heart' : 'heart-empty' %>
+  <%= link_to like_toggle_path(@post), method: :post, remote: true do %>
+    <i class="icon ion-ios-<%= heart_state %>" id="heart"></i>
+  <% end %>
 
-<%= form_for(@comment, url: post_comments_path(@post)) do |f| %>
-  <%= f.label :body, "댓글내용" %><br>
-  <%= f.text_area :body %><br>
+  <%= form_for(@comment, url: post_comments_path(@post)) do |f| %>
+    <%= f.label :body, "댓글내용" %><br>
+    <%= f.text_area :body %><br>
 
-  <%= f.submit "제출" %>
-<% end %>
+    <%= f.submit "제출" %>
+  <% end %>
 
-<% @comments. each do |comment| %>
-  <h2><%= comment.user&.name %></h2>
-  <p><%= comment.body %></p><br><br>
-  <%= link_to "삭제", post_comment_path(@post, comment), method: :delete %>
-<% end %>
+  <% @comments. each do |comment| %>
+    <h2><%= comment.user&.name %></h2>
+    <p><%= comment.body %></p><br><br>
+    <%= link_to "삭제", post_comment_path(@post, comment), method: :delete %>
+  <% end %>
+</div>
