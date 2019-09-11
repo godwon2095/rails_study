@@ -3,9 +3,9 @@ class CommentsController < ApplicationController
   before_action :load_post
 
   def create
-    @post.comments.create!(comment_params)
-
-    redirect_back(fallback_location: root_path)
+    @comment = @post.comments.create!(comment_params)
+    @comment_body = ActionController::Base.helpers.render(@comment)
+    byebug
   end
 
   def destroy

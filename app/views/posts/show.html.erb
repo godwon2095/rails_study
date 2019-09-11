@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><%= @post.title %></h1>
+  <h1 class="post_show__title"><%= @post.title %></h1>
   <h2><%= @post.user&.name %></h2>
   <p><%= @post.content %></p>
 
@@ -8,16 +8,18 @@
     <i class="icon ion-ios-<%= heart_state %>" id="heart"></i>
   <% end %>
 
-  <%= form_for(@comment, url: post_comments_path(@post)) do |f| %>
+  <%= form_for(@comment, url: post_comments_path(@post), remote: true) do |f| %>
     <%= f.label :body, "댓글내용" %><br>
     <%= f.text_area :body %><br>
 
-    <%= f.submit "제출" %>
+    <%= f.submit "제출", id: 'comment-create-button' %>
   <% end %>
 
-  <% @comments. each do |comment| %>
-    <h2><%= comment.user&.name %></h2>
-    <p><%= comment.body %></p><br><br>
-    <%= link_to "삭제", post_comment_path(@post, comment), method: :delete %>
-  <% end %>
+  <div id="comment-list">
+    <% @comments. each do |comment| %>
+      <%= render comment %>
+    <% end %>
+  </div>
 </div>
+
+<%= stylesheet_link_tag 'post_show' %>
